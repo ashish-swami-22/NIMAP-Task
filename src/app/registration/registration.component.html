@@ -1,0 +1,46 @@
+<h2>Register</h2>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label for="firstName">First Name</label>
+    <input id="firstName" formControlName="firstName">
+    <div
+        *ngIf="registerForm.get('firstName').invalid && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)">
+        <div *ngIf="registerForm.get('firstName').errors.required">First Name is required.</div>
+        <div *ngIf="registerForm.get('firstName').errors.pattern">First Name can only contain alphabetic characters.
+        </div>
+        <div *ngIf="registerForm.get('firstName').errors.maxlength">First Name cannot exceed 20 characters.</div>
+    </div>
+
+    <label for="age">Age</label>
+    <input type="range" id="age" formControlName="age" min="1" max="100">
+
+    <label for="interest">Interest</label>
+    <input id="interest" formControlName="interest">
+    <button type="button" (click)="addInterest()">Add</button>
+    <div *ngFor="let interest of interests; let i=index">
+        {{ interest }} <button type="button" (click)="removeInterest(i)">Remove</button>
+    </div>
+
+    <label for="address">Address</label>
+    <select id="address" formControlName="address" (change)="onAddressChange()">
+        <option value="home">Home</option>
+        <option value="company">Company</option>
+    </select>
+
+    <div *ngIf="registerForm.get('address').value === 'home'">
+        <label for="address1">Address 1</label>
+        <input id="address1" formControlName="address1">
+
+        <label for="address2">Address 2</label>
+        <input id="address2" formControlName="address2">
+    </div>
+
+    <div *ngIf="registerForm.get('address').value === 'company'">
+        <label for="companyAddress1">Company Address 1</label>
+        <input id="companyAddress1" formControlName="companyAddress1">
+
+        <label for="companyAddress2">Company Address 2</label>
+        <input id="companyAddress2" formControlName="companyAddress2">
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Submit</button>
+</form>

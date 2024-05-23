@@ -1,0 +1,18 @@
+<div class="profile">
+    <h2>User Profile</h2>
+    <div *ngIf="user">
+        <p><strong>First Name:</strong> {{ user.firstName }}</p>
+        <p><strong>Age:</strong> {{ user.age }}</p>
+        <p><strong>Interests:</strong> {{ user.interests.join(', ') }}</p>
+        <p><strong>Address:</strong> {{ user.address }}</p>
+        <div *ngIf="user.address === 'home'">
+            <p><strong>Address 1:</strong> {{ user.address1 }}</p>
+            <p><strong>Address 2:</strong> {{ user.address2 }}</p>
+        </div>
+        <div *ngIf="user.address === 'company'">
+            <p><strong>Company Address 1:</strong> {{ user.companyAddress1 }}</p>
+            <p><strong>Company Address 2:</strong> {{ user.companyAddress2 }}</p>
+        </div>
+        <button (click)="onEdit()">Edit Profile</button>
+    </div>
+</div>
